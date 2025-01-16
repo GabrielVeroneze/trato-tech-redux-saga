@@ -3,7 +3,7 @@ import styles from './TituloSemImagem.module.scss'
 interface TituloSemImagemProps {
     children?: React.ReactNode
     titulo: string
-    descricao: string
+    descricao?: string
 }
 
 const TituloSemImagem = ({

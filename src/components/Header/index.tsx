@@ -5,7 +5,7 @@ import styles from './Header.module.scss'
 interface HeaderProps {
     children?: React.ReactNode
     titulo: string
-    descricao: string
+    descricao?: string
     imagem?: string
     className?: string
 }
