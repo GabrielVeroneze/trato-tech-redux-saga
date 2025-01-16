@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { categoriasListener } from './middlewares/categorias'
 import { itensListener } from './middlewares/itens'
 import { categoriasSaga } from './sagas/categorias'
 import createSagaMiddleware from 'redux-saga'
@@ -19,7 +18,6 @@ const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(
-            categoriasListener.middleware,
             itensListener.middleware,
             sagaMiddleware
         ),
