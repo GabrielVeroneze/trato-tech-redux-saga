@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import Categoria from '@/pages/Categoria'
 import Carrinho from '@/pages/Carrinho'
 import Anuncie from '@/pages/Anuncie'
+import Pagamento from '@/pages/Pagamento'
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
                     <Route path="/carrinho" element={<Carrinho />} />
                     <Route path="/anuncie/:nomeCategoria" element={<Anuncie />} />
                     <Route path="/anuncie" element={<Anuncie />} />
+                    <Route path="/pagamento" element={<Pagamento />} />
                 </Route>
             </Routes>
         </Router>
