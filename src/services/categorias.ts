@@ -2,12 +2,12 @@ import { Categoria } from '@/types/Categoria'
 import instance from '@/common/config/api'
 
 const categoriasService = {
-    buscar: async () => {
+    buscar: async (): Promise<Categoria[]> => {
         const resposta = await instance.get<Categoria[]>('/categorias')
 
         return resposta.data
     },
-    buscarUmaCategoria: async (nomeCategoria: string) => {
+    buscarUmaCategoria: async (nomeCategoria: string): Promise<Categoria> => {
         const resposta = await instance.get<Categoria>(
             `/categorias/${nomeCategoria}`
         )
