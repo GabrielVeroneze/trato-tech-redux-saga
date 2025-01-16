@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { resetarCarrinho } from '@/store/reducers/carrinho'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { ProdutoCarrinho } from '@/types/ProdutoCarrinho'
 import Header from '@/components/Header'
@@ -8,7 +8,7 @@ import Button from '@/components/Button'
 import styles from './Carrinho.module.scss'
 
 const Carrinho = () => {
-    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const { carrinho, total } = useSelector((state: RootState) => {
         let total = 0
@@ -50,7 +50,7 @@ const Carrinho = () => {
                         Subtotal: <strong>R$ {total.toFixed(2)}</strong>
                     </span>
                 </div>
-                <Button onClick={() => dispatch(resetarCarrinho())}>
+                <Button onClick={() => navigate('/pagamento')}>
                     Finalizar Compra
                 </Button>
             </div>
