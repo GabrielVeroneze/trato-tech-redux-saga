@@ -1,5 +1,5 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-import { adicionarTodasAsCategorias, adicionarUmaCategoria, carregarCategorias, carregarUmaCategoria } from '@/store/reducers/categorias'
+import { adicionarUmaCategoria, carregarUmaCategoria } from '@/store/reducers/categorias'
 import { RootState, AppDispatch } from '@/store'
 import { Categoria } from '@/types/Categoria'
 import categoriasService from '@/services/categorias'
@@ -11,25 +11,6 @@ export const startAppListening = categoriasListener.startListening.withTypes<
     RootState,
     AppDispatch
 >()
-
-startAppListening({
-    actionCreator: carregarCategorias,
-    effect: async (action, { dispatch, fork, unsubscribe }) => {
-        const resposta = await criarTarefa<Categoria[]>({
-            fork,
-            dispatch,
-            action: adicionarTodasAsCategorias,
-            busca: categoriasService.buscar,
-            textoCarregando: 'Carregando categorias',
-            textoSucesso: 'Categorias carregadas com sucesso!',
-            textoErro: 'Erro na busca de categorias',
-        })
-
-        if (resposta.status === 'ok') {
-            unsubscribe()
-        }
-    },
-})
 
 startAppListening({
     actionCreator: carregarUmaCategoria,
