@@ -8,6 +8,7 @@ import categoriasSlice from './reducers/categorias'
 import itensSlice from './reducers/itens'
 import carrinhoSlice from './reducers/carrinho'
 import buscaSlice from './reducers/busca'
+import usuarioSlice from './reducers/usuario'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -17,6 +18,7 @@ const store = configureStore({
         itens: itensSlice,
         carrinho: carrinhoSlice,
         busca: buscaSlice,
+        usuario: usuarioSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(
