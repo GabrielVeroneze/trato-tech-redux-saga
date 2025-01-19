@@ -1,6 +1,7 @@
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import { carregarPagamento, mudarCarrinho, mudarQuantidade, mudarTotal } from '@/store/reducers/carrinho'
 import { adicionarUsuario } from '@/store/reducers/usuario'
+import { RootState } from '@/store'
 import { Usuario } from '@/types/Usuario'
 import { Cartao } from '@/types/Cartao'
 import { Bandeira } from '@/types/Bandeira'
@@ -36,7 +37,7 @@ function* obterPagamento() {
 
 function* calcularTotal() {
     yield delay(500)
-    const state = yield select()
+    const state: RootState = yield select()
 
     const total = state.carrinho.reduce((total, itemNoCarrinho) => {
         const item = state.itens.find(item => item.id === itemNoCarrinho.id)
