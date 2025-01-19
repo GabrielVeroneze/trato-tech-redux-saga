@@ -1,5 +1,6 @@
-import { call, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { carregarPagamento } from '@/store/reducers/carrinho'
+import { adicionarUsuario } from '@/store/reducers/usuario'
 import { Usuario } from '@/types/Usuario'
 import { Cartao } from '@/types/Cartao'
 import { Bandeira } from '@/types/Bandeira'
@@ -24,12 +25,12 @@ function* obterPagamento() {
 
             return {
                 ...cartao,
-                taxa: bandeiraDoCartao?.taxa,
-                bandeira: bandeiraDoCartao?.nome,
+                taxa: bandeiraDoCartao!.taxa,
+                bandeira: bandeiraDoCartao!.nome,
             }
         })
 
-        console.log({ ...usuario, cartoes: cartoesComBandeiras })
+        yield put(adicionarUsuario({ ...usuario, cartoes: cartoesComBandeiras }))
     } catch (error) {}
 }
 
