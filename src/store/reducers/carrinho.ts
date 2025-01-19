@@ -1,7 +1,7 @@
-import { createAction, createSlice } from '@reduxjs/toolkit'
-import { ItemCarrinho } from '@/types/ItemCarrinho'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CarrinhoInfo } from '@/types/CarrinhoInfo'
 
-const initialState: { data: ItemCarrinho[], total: number } = {
+const initialState: CarrinhoInfo = {
     data: [],
     total: 0
 }
@@ -39,7 +39,7 @@ const carrinhoSlice = createSlice({
         resetarCarrinho: () => {
             return initialState
         },
-        mudarTotal: (state, { payload }) => {
+        mudarTotal: (state, { payload }: PayloadAction<number>) => {
             state.total = payload
         }
     },
