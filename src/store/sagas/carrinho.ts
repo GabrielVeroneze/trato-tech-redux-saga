@@ -1,5 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-import { carregarPagamento } from '@/store/reducers/carrinho'
+import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
+import { carregarPagamento, mudarCarrinho, mudarQuantidade, mudarTotal } from '@/store/reducers/carrinho'
 import { adicionarUsuario } from '@/store/reducers/usuario'
 import { Usuario } from '@/types/Usuario'
 import { Cartao } from '@/types/Cartao'
@@ -34,6 +34,19 @@ function* obterPagamento() {
     } catch (error) {}
 }
 
+function* calcularTotal() {
+    yield delay(500)
+    const state = yield select()
+
+    const total = state.carrinho.reduce((total, itemNoCarrinho) => {
+        const item = state.itens.find(item => item.id === itemNoCarrinho.id)
+        return total + item!.preco * itemNoCarrinho.quantidade
+    }, 0)
+
+    yield put(mudarTotal(total))
+}
+
 export function* carrinhoSaga() {
     yield takeLatest(carregarPagamento, obterPagamento)
+    yield takeEvery([mudarQuantidade, mudarCarrinho], calcularTotal)
 }
