@@ -9,21 +9,25 @@ import Button from '@/components/Button'
 import styles from './Pagamento.module.scss'
 
 const Pagamento = () => {
-    const [formaDePagamento, setFormaDePagamento] = useState<CartaoComBandeira | string>('')
+    const [cartaoSelecionado, setCartaoSelecionado] = useState<string>('')
+    const [detalhesCartao, setDetalhesCartao] = useState<CartaoComBandeira | null>(null)
+
     const dispatch = useDispatch()
 
     const usuario = useSelector((state: RootState) => state.usuario)
     const total = useSelector((state: RootState) => state.carrinho.total)
-    const valorTotal = formaDePagamento ? total * formaDePagamento.taxa : total
+    const valorTotal = detalhesCartao ? total * detalhesCartao.taxa : total
 
     const mudarFormaDePagamento = (evento: React.ChangeEvent<HTMLSelectElement>) => {
+        setCartaoSelecionado(evento.target.value)
+
         if (!evento.target.value) {
-            setFormaDePagamento('')
+            setDetalhesCartao(null)
             return
         }
 
-        setFormaDePagamento(
-            usuario.cartoes.find(cartao => cartao.id === evento.target.value)
+        setDetalhesCartao(
+            usuario.cartoes.find(cartao => cartao.id === evento.target.value) || null
         )
     }
 
@@ -40,7 +44,7 @@ const Pagamento = () => {
                 </p>
                 <Select
                     aria-label="Forma de pagamento"
-                    value={formaDePagamento.id}
+                    value={cartaoSelecionado}
                     onChange={mudarFormaDePagamento}
                 >
                     <option value="">Forma de pagamento</option>
@@ -51,15 +55,15 @@ const Pagamento = () => {
                     ))}
                 </Select>
                 <div className={styles.content}>
-                    {formaDePagamento && (
+                    {detalhesCartao && (
                         <>
                             <p>
-                                A forma de pagamento {formaDePagamento.nome} tem
-                                taxa de {formaDePagamento.taxa}x
+                                A forma de pagamento {detalhesCartao.nome} tem
+                                taxa de {detalhesCartao.taxa}x
                             </p>
                             <p>
                                 O saldo deste cartão é de R${' '}
-                                {formaDePagamento.saldo.toFixed(2)}
+                                {detalhesCartao.saldo.toFixed(2)}
                             </p>
                         </>
                     )}
