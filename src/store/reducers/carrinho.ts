@@ -7,6 +7,7 @@ const initialState: CarrinhoInfo = {
 }
 
 export const carregarPagamento = createAction('carrinho/carregarPagamento')
+export const finalizarPagamento = createAction('carrinho/finalizarPagamento')
 
 const carrinhoSlice = createSlice({
     name: 'carrinho',
