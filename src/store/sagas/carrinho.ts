@@ -3,6 +3,7 @@ import { createStandaloneToast } from '@chakra-ui/toast'
 import { carregarPagamento, finalizarPagamento, mudarCarrinho, mudarQuantidade, mudarTotal, resetarCarrinho } from '@/store/reducers/carrinho'
 import { adicionarUsuario } from '@/store/reducers/usuario'
 import { RootState } from '@/store'
+import { PagamentoDetalhes } from '@/types/PagamentoDetalhes'
 import { Usuario } from '@/types/Usuario'
 import { Cartao } from '@/types/Cartao'
 import { Bandeira } from '@/types/Bandeira'
@@ -50,10 +51,10 @@ function* calcularTotal() {
     yield put(mudarTotal(total))
 }
 
-function* processarPagamento({ payload }) {
+function* processarPagamento({ payload }: { payload: PagamentoDetalhes }) {
     const { valorTotal, detalhesCartao } = payload
 
-    if (valorTotal > detalhesCartao.saldo) {
+    if (valorTotal > detalhesCartao!.saldo) {
         yield toast({
             title: 'Erro',
             description: 'Saldo insuficiente',
