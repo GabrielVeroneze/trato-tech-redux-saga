@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { carregarPagamento } from '@/store/reducers/carrinho'
+import { carregarPagamento, finalizarPagamento } from '@/store/reducers/carrinho'
 import { RootState } from '@/store'
 import { CartaoComBandeira } from '@/types/UsuarioComCartoes'
 import Header from '@/components/Header'
@@ -29,6 +29,10 @@ const Pagamento = () => {
         setDetalhesCartao(
             usuario.cartoes.find(cartao => cartao.id === evento.target.value) || null
         )
+    }
+
+    const finalizar = () => {
+        dispatch(finalizarPagamento({ valorTotal, detalhesCartao }))
     }
 
     useEffect(() => {
@@ -70,7 +74,12 @@ const Pagamento = () => {
                     <p>Total com taxas: R$ {valorTotal.toFixed(2)}</p>
                 </div>
                 <div className={styles.finalizar}>
-                    <Button>Finalizar Compra</Button>
+                    <Button
+                        disabled={valorTotal === 0 || cartaoSelecionado === ''}
+                        onClick={finalizar}
+                    >
+                        Finalizar Compra
+                    </Button>
                 </div>
             </div>
         </div>
