@@ -1,5 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CarrinhoInfo } from '@/types/CarrinhoInfo'
+import { PagamentoDetalhes } from '@/types/PagamentoDetalhes'
 
 const initialState: CarrinhoInfo = {
     data: [],
@@ -7,7 +8,7 @@ const initialState: CarrinhoInfo = {
 }
 
 export const carregarPagamento = createAction('carrinho/carregarPagamento')
-export const finalizarPagamento = createAction('carrinho/finalizarPagamento')
+export const finalizarPagamento = createAction<PagamentoDetalhes>('carrinho/finalizarPagamento')
 
 const carrinhoSlice = createSlice({
     name: 'carrinho',
